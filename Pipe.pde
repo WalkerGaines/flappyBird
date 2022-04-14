@@ -18,6 +18,7 @@ class Pipe{
   s=speed;
   w=W;
   x=X;
+  h=600;
   ;
   }
   

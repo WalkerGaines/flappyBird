@@ -1,4 +1,5 @@
-class Bird {
+class Bird 
+{
   int x, y, w, h, r;
   color birdC;
   float g;
@@ -45,7 +46,7 @@ class Bird {
     stroke(0);
     strokeWeight(5);
     noFill();
-    rect(0, 0, w+10, h);
+    //rect(0, 0, w+10, h);
     popStyle();
 
     image(cat, 0, 0);
@@ -119,7 +120,7 @@ class Bird {
    */
 
 
-  boolean collideWithTop(Pipe p) {
+    boolean collideWithTop(Pipe p) {
 
     int x1, y1, x2, y2, x3, y3, x4, y4;
     int rx1, ry1, rx2, ry2, rx3, ry3, rx4, ry4;
@@ -150,7 +151,8 @@ class Bird {
     
     x4 = int((x4*cos(radians(r)))-(y4*sin(radians(r))))+x;
     y4 = int((y4*cos(radians(r)))+((w+10)*sin(radians(r))))+y;
-//println(x4,y4, " ", mouseX,mouseY);
+    //println(x4,y4, " ", mouseX,mouseY);
+
     //pipe
     //top left pipe
     rx1 = p.x-p.w/2;
@@ -169,23 +171,35 @@ class Bird {
     ry4 = p.y+p.h/2-375;
 
 
+fill(255);
+  beginShape();
+    vertex(x1,y1);
+    vertex(x2,y2);
+    vertex(x4,y4);
+    vertex(x3,y3);
+  endShape(CLOSE);
 
-
-    if (x1<rx4 &&
-      x4>rx1 &&
-      y1<ry4 &&
-      y4>ry1 &&
-      
-      x2>rx3 &&
-      x3<rx2 &&
-      y2 <ry3 &&
-      y3>ry2
-      ) {
-      return true;
-    } else {
-      return false;
+  beginShape();
+    vertex(rx1,ry1);
+    vertex(rx2,ry2);
+    vertex(rx4,ry4);
+    vertex(rx3,ry3);
+  endShape(CLOSE);
+  
+  //bird in pipe
+ if(x2>rx1 && x2<rx2 && y2<ry3 ||
+    x1>rx1 && x1<rx2 && y1<ry3 ||
+    x3>rx1 && x3<rx2 && y3<ry3 ||
+    x4>rx1 && x4<rx2 && y4<ry3){
+    return true;
     }
-  }
+
+  //pipe in bird
+if(rx3>x2 && rx3<)
+
+
+   return false;
+    }   
 
 
 
@@ -227,8 +241,8 @@ class Bird {
     rx4 = p.x+p.w/2;
     ry4 = p.y+p.h/2+375;
     
-//strokeWeight(8);
-//quad(x1,y1,x2,y2,x4,y4,x3,y3);
+    //strokeWeight(8);
+    //quad(x1,y1,x2,y2,x4,y4,x3,y3);
     if (x1<rx4 &&
       x4>rx1 &&
       y1<ry4 &&
