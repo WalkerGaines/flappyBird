@@ -17,6 +17,7 @@ class Bird
   }
 
   Bird(int Y, int W, int H, int C) {
+    x=width/2;
     y=Y;
     w=W;
     h=H;
@@ -75,7 +76,7 @@ class Bird
       y+=g;
     }
     if (up) {
-      g=-5;
+      g=-4;
       up=false;
     }
         if (r<80 ) {
@@ -93,6 +94,7 @@ class Bird
     if (birb.y+birb.h/2>height-birb.h-40) {
       g=0;
       gameOver=true;
+     
     }
   }
 
@@ -121,7 +123,7 @@ class Bird
    */
    
    
-   }
+   
    
 
 
@@ -131,7 +133,7 @@ class Bird
     int rx1, ry1, rx2, ry2, rx3, ry3, rx4, ry4;
     //bird
     //top left corner
-    x1 = x;
+    x1 =x;
     y1 = y;
 
     //top right corner
@@ -204,9 +206,10 @@ PVector[] square2 = {
   new PVector(rx3, ry3),
   new PVector(rx4, ry4)
 };
-if(polypoly(sqaure1,square2)){
+if(polyPoly(square1,square2)){
   return true;
 }
+return false;
     }
 
 // POLYGON/POLYGON
@@ -388,6 +391,25 @@ if(rx3>x2 && rx3<x4 && ry3>y2 ||
     rx4 = p.x+p.w/2;
     ry4 = p.y+p.h/2+375;
 
+  PVector[] square1 = {
+  new PVector(x1, y1),
+  new PVector(x2, y2),
+  new PVector(x3, y3),
+  new PVector(x4, y4)
+};
+PVector[] square2 = {
+  new PVector(rx1, ry1),
+  new PVector(rx2, ry2),
+  new PVector(rx3, ry3),
+  new PVector(rx4, ry4)
+};
+if(polyPoly(square1,square2)){
+  return true;
+}
+return false;
+    }
+
+
 /*
 fill(255);
   beginShape();
@@ -425,6 +447,5 @@ if(rx1<x2 && rx1>x4 && ry1<y4 ||
    return false;
     }   
 */
-  }
-  
-  //end
+
+  }//end

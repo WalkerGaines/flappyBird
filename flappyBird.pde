@@ -2,6 +2,7 @@
 Bird birb;
 Pipe P;
 Pipe P1;
+ArrayList<Rainbow> rainbows;
 ScoreBoard sb;
 boolean up, menu, gameOver;
 int i, test;
@@ -17,6 +18,7 @@ void setup() {
   P = new Pipe();
   P1 = new Pipe(width+width/2+70,(int)random(200,600),70,2);
   sb = new ScoreBoard();
+  rainbows = new ArrayList<Rainbow>();
 
   menu = true;
   num = createFont("04B_19__.TTF", 128);
@@ -43,7 +45,16 @@ popMatrix();
   } else {
     
 
-    
+    rainbows.add(new Rainbow(birb.x,birb.y));
+    for( int i = rainbows.size()-1; i>=0;i--){
+      Rainbow quick=rainbows.get(i);
+      quick.display();
+      quick.move();
+        if(quick.x<0){
+          rainbows.remove(quick);
+          
+        }
+    }
     P.display();
     P1.display();
     
