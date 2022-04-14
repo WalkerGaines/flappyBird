@@ -31,9 +31,7 @@ class Bird
 
 
 
-    if (r<80 ) {
-      r+=2;
-    }
+
 
 
     rotate(radians(r));
@@ -59,9 +57,9 @@ class Bird
 
     popMatrix();
     noFill();
-    rect(x, y, w+10, h);
+    //rect(x, y, w+10, h);
     
-        if (collideWithTop(P) || collideWithTop(P1) ) {
+        if (collideWithTop(P) || collideWithTop(P1) || collideWithBottom(P) || collideWithBottom(P1)) {
       birb.Bstop();
       //println("yay");
       P.s=0;
@@ -79,6 +77,9 @@ class Bird
     if (up) {
       g=-5;
       up=false;
+    }
+        if (r<80 ) {
+      r+=2;
     }
   }
 
@@ -170,7 +171,7 @@ class Bird
     rx4 = p.x+p.w/2;
     ry4 = p.y+p.h/2-375;
 
-
+/*
 fill(255);
   beginShape();
     vertex(x1,y1);
@@ -185,6 +186,7 @@ fill(255);
     vertex(rx4,ry4);
     vertex(rx3,ry3);
   endShape(CLOSE);
+  */
   
   //bird in pipe
  if(x2>rx1 && x2<rx2 && y2<ry3 ||
@@ -195,7 +197,12 @@ fill(255);
     }
 
   //pipe in bird
-if(rx3>x2 && rx3<)
+if(rx3>x2 && rx3<x4 && ry3>y2 ||
+   rx3>x1 && rx3<x2 && ry3>y1 ||
+   rx4>x1 && rx4<x2 && ry4>y2 ||
+   rx4>x3 && rx4<x2 && ry4>y1){
+     return true;
+   }
 
 
    return false;
@@ -213,16 +220,28 @@ if(rx3>x2 && rx3<)
     y1 = y;
 
     //top right corner
-    x2 = x+w+10;
-    y2 = y;
-
+    x2 = w+10;
+    y2 = 0;
+    //println(x2);
+    
+    x2 = abs(int((x2*cos(radians(r)))-(y2*sin(radians(r)))))+x;
+    y2 = int((y2*cos(radians(r)))+((w+10)*sin(radians(r))))+y;
+    
     //bottom left corner
-    x3 = x;
-    y3 = y+h;
+    x3 = 0;
+    y3 = h;
+    
+    x3 = int((x3*cos(radians(r)))-(y3*sin(radians(r))))+x;
+    y3 = int((y3*cos(radians(r)))+(0*sin(radians(r))))+y;
+    
 
     //bottom right corner
-    x4 = x+w+10;
-    y4 = y+h;
+    x4 = w+10;
+    y4 = h;
+    
+    x4 = int((x4*cos(radians(r)))-(y4*sin(radians(r))))+x;
+    y4 = int((y4*cos(radians(r)))+((w+10)*sin(radians(r))))+y;
+    //println(x4,y4, " ", mouseX,mouseY);
 
     //pipe
     //top left pipe
@@ -240,22 +259,42 @@ if(rx3>x2 && rx3<)
     //bottom right pipe      
     rx4 = p.x+p.w/2;
     ry4 = p.y+p.h/2+375;
-    
-    //strokeWeight(8);
-    //quad(x1,y1,x2,y2,x4,y4,x3,y3);
-    if (x1<rx4 &&
-      x4>rx1 &&
-      y1<ry4 &&
-      y4>ry1 &&
-      
-      x2>rx3 &&
-      x3<rx2 &&
-      y2 <ry3 &&
-      y3>ry2
-      ) {                            
-      return true;
-    } else {
-      return false;
+
+/*
+fill(255);
+  beginShape();
+    vertex(x1,y1);
+    vertex(x2,y2);
+    vertex(x4,y4);
+    vertex(x3,y3);
+  endShape(CLOSE);
+
+  beginShape();
+    vertex(rx1,ry1);
+    vertex(rx2,ry2);
+    vertex(rx4,ry4);
+    vertex(rx3,ry3);
+  endShape(CLOSE);
+  */
+  
+  //bird in pipe
+ if(x2>rx1 && x2<rx2 && y4>ry2 ||
+    x1>rx1 && x1<rx2 && y1>ry2 ||
+    x3>rx1 && x3<rx2 && y3>ry2 ||
+    x4>rx1 && x4<rx2 && y4>ry2){
+    return true;
     }
-  }
-}//end
+
+  //pipe in bird
+if(rx1<x2 && rx1>x4 && ry1<y4 ||
+   rx1>x1 && rx1<x4 && ry1<y3 ||
+   rx2>x1 && rx2<x3 && ry2<y3 ||
+   rx2>x3 && rx2<x4 && ry2<y4){
+     return true;
+   }
+
+
+   return false;
+    }   
+
+  }//end

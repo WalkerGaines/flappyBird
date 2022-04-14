@@ -31,11 +31,7 @@ void setup() {
 void draw() {
   background(0);
   pushMatrix();
-  /*for(int i =0; i<89; i++)
-  {
-    println(((birb.x*cos(i))-(birb.y*sin(i))));
-  }
-  */
+
   scale(1.5);
 image(BG,0,0);
 
@@ -59,7 +55,7 @@ popMatrix();
     birb.checkScore(P1);
     
     //movement
-//birb.gravity();
+  birb.gravity();
 
     //gameOver
     if (birb.y+birb.h/2>height-birb.h-31) {//31 is the pxl height of the floor
